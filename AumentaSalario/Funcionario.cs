@@ -1,26 +1,30 @@
-﻿using System;
-using System.Globalization;
-
-namespace AumentaSalario
+namespace Course
 {
-    internal class Funcionario
+    internal class Employee
     {
-        public string Nome;
-        public double SalarioBruto;
-        public double Imposto;
-        public double SalarioLiquido()
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public double Salary { get; set; }
+
+        public Employee(int id, string name, double salary)
         {
-            return SalarioBruto - Imposto;
+            Id = id;
+            Name = name;
+            Salary = salary;
         }
-        public void AumentarSalario(double porcentagem)
+
+        public void IncreaseSalary(double percentage)
         {
-            SalarioBruto = SalarioBruto + (SalarioBruto * porcentagem / 100.0);
+            Salary += Salary * percentage / 100.0; 
         }
+
         public override string ToString()
         {
-            return Nome
-            + ", R$ "
-            + SalarioLiquido().ToString("F2", CultureInfo.InvariantCulture);
+            return Id 
+                + ", "
+                + Name
+                + ", "
+                + Salary.ToString("F2", CultureInfo.InvariantCulture);
         }
     }
 }
