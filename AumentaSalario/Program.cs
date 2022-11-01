@@ -1,26 +1,54 @@
-﻿using System.Globalization;
+using System.Globalization;
+using System.Collections.Generic;
 
-namespace AumentaSalario
+namespace Course
 {
     internal class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Funcionario func = new Funcionario();
-            Console.Write("Nome: ");
-            func.Nome = Console.ReadLine();
-            Console.Write("Salario bruto: ");
-            func.SalarioBruto = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-            Console.Write("Imposto: ");
-            func.Imposto = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+            Console.Write("How many employees will be registered?");
+            int n = int.Parse(Console.ReadLine());
+
+            List<Employee> list = new List<Employee>();
+
+            for (int i = 1; i <= n; i++)
+            {
+                Console.WriteLine("Employee #" + i + ":");
+                Console.Write("Id: ");
+                int id = int.Parse(Console.ReadLine());
+
+                Console.Write("Name: ");
+                string name = Console.ReadLine();
+
+                Console.Write("Salary: ");
+                double salary = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                list.Add(new Employee(id, name, salary));
+                Console.WriteLine();
+            }
+
+            Console.Write("Enter the employee id that will have salary increase: ");
+            int searchId = int.Parse(Console.ReadLine());
+
+            Employee emp = list.Find(x => x.Id == searchId);
+            if(emp != null)
+            {
+                Console.Write("Enter the percentage: ");
+                double percentage = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                emp.IncreaseSalary(percentage);
+            }
+            else
+            {
+                Console.WriteLine("This id does not exist!");
+            }
+
             Console.WriteLine();
-            Console.WriteLine("Funcionário: " + func);
-            Console.WriteLine();
-            Console.Write("Deseja aumentar o salário em qual porcentagem? ");
-            double porcent = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-            func.AumentarSalario(porcent);
-            Console.WriteLine();
-            Console.WriteLine("Dados atualizados: " + func);
-        }
+            Console.WriteLine("Updated list of employees: ");
+            foreach(Employee obj in list)
+            {
+                Console.WriteLine(obj);
+            }
+
+        } 
     }
 }
